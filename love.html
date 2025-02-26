@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>❤️ 我喜欢你 ❤️</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Microsoft YaHei', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1;
+        }
+
+        h1 {
+            color: #ff3f6c;
+            font-size: 4em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: heartbeat 1.2s infinite;
+        }
+
+        .message {
+            background: rgba(255,255,255,0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            margin: 20px;
+            max-width: 600px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 30px;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        #accept {
+            background: #ff3f6c;
+            color: white;
+        }
+
+        #reject {
+            background: #ddd;
+            color: #666;
+            position: relative;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* 花瓣飘落效果 */
+        .petal {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: rgba(255,255,255,0.7);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 花瓣容器 -->
+    <div id="petals"></div>
+
+    <div class="container">
+        <h1>❤️ 我喜欢你 ❤️</h1>
+        
+        <div class="message">
+            <p>亲爱的欣欣：</p >
+            <p>喜欢你大概是这个世界上 最独断 最没有道理的事了 在世界如此广阔的情况下 我们竟然相遇了 这难道只是巧合 还是命运的安排 你的形象深深地印在我的脑海中 无论是在我的梦境里 还是在我的内心深处 都挥之不去
+你是我平淡生活里的星辰<br>
+               你的笑容像阳光一样温暖  你的声音是我最爱的旋律 <br>
+               愿意给我一个机会 让我陪你走过每一个春夏秋冬吗？</p >
+        </div>
+
+        <div class="buttons">
+            <button id="accept" onclick="showResponse('yes')">我愿意！</button>
+            <button id="reject" onmouseover="moveButton()">再考虑一下</button>
+        </div>
+
+        <audio id="bgm" loop>
+            <source src="https://fm.afbcs.cn/Nyu4QF" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script>
+        // 自动播放背景音乐（需用户交互后生效）
+        document.addEventListener('click', function() {
+            document.getElementById('bgm').play()
+        })
+
+        // 创建花瓣
+        function createPetals() {
+            const petalsContainer = document.getElementById('petals')
+            for (let i = 0; i < 30; i++) {
+                const petal = document.createElement('div')
+                petal.className = 'petal'
+                petal.style.left = Math.random() * 100 + 'vw'
+                petal.style.animationDuration = Math.random() * 3 + 5 + 's'
+                petal.style.animationDelay = Math.random() * 5 + 's'
+                petalsContainer.appendChild(petal)
+            }
+        }
+
+        // 拒绝按钮移动效果
+        function moveButton() {
+            const btn = document.getElementById('reject')
+            const x = Math.random() * (window.innerWidth - 150)
+            const y = Math.random() * (window.innerHeight - 80)
+            btn.style.transform = `translate(${x}px, ${y}px)`
+        }
+
+        // 接受按钮响应
+        function showResponse(response) {
+            if (response === 'yes') {
+                alert('🎉 太棒了！我将会是你最幸福的另一半！')
+                document.body.innerHTML = `
+                    <div style="text-align:center; padding:50px;">
+                        <h1 style="color:#ff3f6c;">❤️ 我们在一起啦！ ❤️</h1>
+                        <p>从现在开始，你就是我的全世界</p >
+                        <div style="font-size:100px;">🥰</div>
+                    </div>
+                `
+            }
+        }
+
+        // 初始化花瓣
+        createPetals()
+
+        // 点击爱心特效
+        document.addEventListener('click', function(e) {
+            const heart = document.createElement('div')
+            heart.style.position = 'absolute'
+            heart.style.left = e.clientX + 'px'
+            heart.style.top = e.clientY + 'px'
+            heart.style.fontSize = '25px'
+            heart.style.animation = 'float 3s forwards'
+            heart.innerHTML = '❤️'
+            document.body.appendChild(heart)
+            
+            setTimeout(() => heart.remove(), 3000)
+        })
+    </script>
+</body>
+</html>
